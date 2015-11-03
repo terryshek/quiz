@@ -1,0 +1,22 @@
+{
+  "name": "quizapp-angular",
+  "homepage": "https://github.com/odhyan/quizapp-angular",
+  "authors": [
+    "terryshek <terryshek@msn.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "bootstrap": "~3.3.5"
+  }
+}

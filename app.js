@@ -1,12 +1,33 @@
 var app = angular.module('quizApp', []);
+var countDown = 1000;
 
-app.directive('quiz', function(quizFactory) {
+
+app.directive('quiz', function(quizFactory, $timeout) {
+
+
 	return {
 		restrict: 'AE',
 		scope: {},
 		templateUrl: 'template.html',
 		link: function(scope, elem, attrs) {
+
+			scope.duration = 100// 10s
+
+			scope.setCountDown=function(){
+				console.log('timeout')
+				scope.duration -=10
+				$timeout(scope.setCountDown, countDown);
+				if(!scope.duration){
+					var options = {
+						backdrop:false,
+						keyboard:false
+					}
+					$('#myModal').modal(options)
+				}
+			}
+
 			scope.start = function() {
+				//$timeout(scope.setCountDown,countDown)
 				scope.id = 0;
 				scope.quizOver = false;
 				scope.inProgress = true;
@@ -21,6 +42,7 @@ app.directive('quiz', function(quizFactory) {
 			scope.getQuestion = function() {
 				var q = quizFactory.getQuestion(scope.id);
 				if(q) {
+					$timeout(scope.setCountDown(), 1000);
 					scope.question = q.question;
 					scope.options = q.options;
 					scope.answer = q.answer;
@@ -77,7 +99,7 @@ app.factory('quizFactory', function() {
 			options: ["Atlanta", "Sydney", "Athens", "Beijing"],
 			answer: 0
 		},
-		{	
+		{
 			question: "Who invented telephone?",
 			options: ["Albert Einstein", "Alexander Graham Bell", "Isaac Newton", "Marie Curie"],
 			answer: 1
